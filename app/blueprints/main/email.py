@@ -5,5 +5,4 @@ from app import mail
 def send_email(data):
     msg = Message(data['message'], sender=data['email'], recipients=[app.config.get('MAIL_USERNAME')])
     msg.html = render_template('email.html', sender=data)
-    # print(msg)  
     mail.send(msg)

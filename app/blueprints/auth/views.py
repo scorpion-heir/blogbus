@@ -69,7 +69,7 @@ def unfollow():
 def update_user():
     if request.method == 'POST':
         user = User.query.get(current_user.id)
-        form = request.form #store all the "name" as dict keys
+        form = request.form 
         if form['password'] and form['confirm_password']:
             if form['password'] == form['confirm_password']:
                 user.password = form['password']
@@ -82,7 +82,7 @@ def update_user():
     return redirect(url_for('main.profile'))
 
 
-#Google OAUTH routes and config info 
+
 google = oauth.register(
     name='google',
     client_id=os.getenv("GOOGLE_CLIENT_ID"),
@@ -113,7 +113,7 @@ def authorize():
     session['profile'] = user_info
 
     user = User.query.filter_by(email = user_info['email']).first()
-    if user: #signed in before, now updating info of existing users
+    if user: 
         user.first_name = user_info['given_name']
         user.last_name = user_info['family_name']
         user.email = user_info['email']
@@ -125,7 +125,7 @@ def authorize():
         session.permanent = True
         return redirect(url_for('main.home'))
 
-    else: #creating user for the first time 
+    else: 
         g_first_name = user_info['given_name']
         g_last_name = user_info['family_name']
         g_email = user_info['email']

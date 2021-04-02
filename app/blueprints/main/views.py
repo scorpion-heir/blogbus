@@ -7,9 +7,7 @@ from .import bp as main_bp
 from .email import send_email
 
 
-## password HASHING + SALTING
-#HASHING - alto where a particular character has a specified translation, con is can be decipher
-#SALTING - encrypeted password will be different for two same pwd
+
 
 
 @main_bp.route('/')
@@ -17,11 +15,11 @@ def home():
     if current_user.is_authenticated:
         posts = current_user.followed_posts().all()
     else:
-        posts = [] #for display to anonymous users 
+        posts = [] 
     context = {
         'user': current_user,
         'posts': posts 
-        # 'posts': Post.query.order_by(Post.date_created.desc()).all()
+       
     }
     return render_template('home.html', **context)
 
@@ -47,7 +45,7 @@ def contact():
         return redirect(url_for('main.contact'))
     return render_template('contact.html')
 
-@main_bp.route('/explore') #pass that dictionary to my route 
+@main_bp.route('/explore') 
 @login_required
 def explore(): 
     context = {
