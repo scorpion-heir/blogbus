@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+         <h3>Profile</h3>
+         <hr>
+             <form action="{{ url_for('blog.create_post') }}" method="POST">
+                 <div class="form-group">
+                     <div class="row">
+                         <div class="col-md-11">
+                             <div class="input-group">
+                                 <input type="text" name="status_update" class="form-control" placeholder="What's on your mind?">
+                             </div>
+                         </div>
+                         <div class="col-md-1">
+                             <div class="input-group">
+                                 <input type="submit" class="btn btn-info" value="Post">
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </form>
+             <ul class="list-group">
+                 {% for p in posts %} 
+                     <li class="list-group-item"> <!--either format below works-->
+                         <h4>
+                             {{ p['title'] }}
+                             <span style="font-size: 16px; color:gray" class="float-right">{{ moment(p.date_created).fromNow() }}</span>
+                         </h4>
+                         <p>{{ p.body }}</p>  
+                         <cite>
+                             &mdash; {{ p.user.email }}
+                         </cite>
+                     </li>
+                 {% endfor %}
+             </ul>
+        </div>
+        <div class="col-md-6">
+         <div class="col-md-6 offset-md-3">
+             <h3>Update Info</h3>
+             <hr>
+             <form action="{{ url_for('auth.update_user') }}" method="POST">
+                 <div class="row">
+                     <div class="col-md-6 standardized">
+                         <div class="form-group">
+                             <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ current_user.first_name }}">
+                         </div>
+                     </div>
+                     <div class="col-md-6 standardized">
+                         <div class="form-group">
+                             <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ current_user.last_name }}">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-6 standardized">
+                         <div class="form-group">
+                             <input type="password" name="password" class="form-control" placeholder="Password">
+                         </div>
+                     </div>
+                     <div class="col-md-6 standardized">
+                         <div class="form-group">
+                             <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12 standardized">
+                         <div class="form-group">
+                             <input type="submit" value="Update Info" class="btn btn-info btn-block">
+                         </div>
+                     </div>
+                 </div>
+             </form>
+         </div>
+        </div>
+     </div>  
+</div>
+
+
+
+
+{% endblock %}

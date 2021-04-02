@@ -1,0 +1,14 @@
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for c, m in messages %}
+                <div class="alert alert-{{ c }} alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>{{ m }}</strong> 
+                </div>
+            {% endfor %}<!--determine if we have message to be displayed, then we loop over -->
+        {% endif %} <!--if we have message to be stored in variable, if we have message to be displayed-->
+    {% endwith %} <!--determine if we have message to be stored in variable-->
+</div>

@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3>
+    
+    {% if current_user.is_authenticated %}
+        <span >Hello, {{ user.first_name }}!</span>
+    {% else %}
+        <span >Good Day!</span>
+    {% endif %}
+</h3>
+<hr>
+
+<form action="{{ url_for('blog.create_post') }}" method="POST">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="input-group">
+                    <input type="text" name="status_update" class="form-control" placeholder="What's on your mind?">
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="input-group">
+                    <input type="submit" class="btn btn-info" value="Post">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if posts %}
+    <ul class="list-group">
+        {% for p in posts %} 
+            <li class="list-group-item"> 
+                <h4>
+                    {{ p['title'] }}
+                    <span style="font-size: 16px; color:gray" class="float-right">{{ moment(p.date_created).fromNow() }}</span>
+                </h4>
+                <p>{{ p.body }}</p>  
+                <cite>
+                    &mdash; {{ p.user.email }}
+                </cite>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
+
+
+{% endblock %}
